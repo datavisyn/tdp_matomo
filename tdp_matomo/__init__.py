@@ -11,7 +11,9 @@ def phovea(registry):
   :param registry:
   """
   # generator-phovea:begin
-
+  registry.append('tdp-config-safe-keys', 'matomo', '', {
+   'configKey': 'tdp_matomo.matomo'
+  })
   # generator-phovea:end
   pass
 
