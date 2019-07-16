@@ -5,17 +5,30 @@ import {SESSION_KEY_NEW_ENTRY_POINT} from 'ordino/src/internal/constants';
 import * as session from 'phovea_core/src/session';
 import {ProvenanceGraph, ActionNode} from 'phovea_core/src/provenance';
 import {getAPIJSON} from 'phovea_core/src/ajax';
-import parseRange from 'phovea_core/src/range/parser';
 import ATDPApplication from 'tdp_core/src/ATDPApplication';
 
 /**
  * Trackable Matomo event
  */
-interface IMatomoEvent {
+export interface IMatomoEvent {
   category: string;
   action: string;
   name?: (node: ActionNode) => string | string;
   value?: (node: ActionNode) => number | number;
+}
+
+/**
+ * Trackable action
+ */
+export interface ITrackableAction {
+  /**
+   * phovea extension id
+   */
+  id: string;
+  /**
+   * matomo event
+   */
+  event: IMatomoEvent;
 }
 
 /**
@@ -34,12 +47,6 @@ trackableActions.set('tdpSetParameter', {category:'view', action: 'setParameter'
 // from tdp_core\src\lineup\internal\scorecmds.ts
 trackableActions.set('tdpAddScore', {category:'score', action: 'add'});
 trackableActions.set('tdpRemoveScore', {category:'score', action: 'remove'});
-
-// from ordino\src\internal\cmds.ts
-trackableActions.set('targidCreateView', {category:'view', action: 'create'});
-trackableActions.set('targidRemoveView', {category:'view', action: 'remove'});
-trackableActions.set('targidReplaceView', {category:'view', action: 'replace'});
-trackableActions.set('targidSetSelection', {category:'view', action: 'setSelection', value: (node) => parseRange(node.parameter.range).dim(0).length});
 
 // from tdp_core\src\lineup\internal\cmds.ts
 trackableActions.set('lineupSetRankingSortCriteria', {category:'lineup', action: 'setRankingSortCriteria'});
@@ -92,7 +99,7 @@ const matomo = {
   }
 };
 
-function trackGraph(graph: ProvenanceGraph) {
+function trackGraph(graph: ProvenanceGraph, trackableActions: Map<string, IMatomoEvent>) {
   graph.on('execute', (_, node: ActionNode) => {
     if(!Array.from(trackableActions.keys()).includes(node.getAttr('f_id'))) {
       return;
@@ -128,7 +135,12 @@ function initMamoto(config: IPhoveaMatomoConfig): boolean {
   return true;
 }
 
-export function trackApp(tdpApp: ATDPApplication<any>): Promise<boolean> {
+export function trackApp(tdpApp: ATDPApplication<any>, customActions?: {id: string, event: IMatomoEvent}[]): Promise<boolean> {
+  // merge custom actions into trackable actions
+  if(customActions && customActions.length > 0) {
+    customActions.forEach((action) => trackableActions.set(action.id, action.event));
+  }
+
   const matomoConfig = getAPIJSON('/tdp/config/matomo');
 
   tdpApp.on(Ordino.EVENT_OPEN_START_MENU, () => matomo.trackEvent('startMenu', 'open', 'Open start menu'));
@@ -147,7 +159,7 @@ export function trackApp(tdpApp: ATDPApplication<any>): Promise<boolean> {
       }
 
       matomoConfig.then((config: IPhoveaMatomoConfig) => {
-        trackGraph(graph);
+        trackGraph(graph, trackableActions);
       });
     });
   });
