@@ -1,7 +1,37 @@
-tdp_matomo [![Phovea][phovea-image]][phovea-url] [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+tdp_matomo [![Phovea][phovea-image]][phovea-url] [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
 =====================
 
-Matomo tracking for TDP applications
+Matomo tracking for TDP applications based on provenance graph commands.
+
+Configuration
+------------
+
+The tracking starts when a URL to a Matomo backend is set in the `config.js`.
+The site ID corresponds with the Matomo site.
+
+```js
+{
+  "matomo": {
+    "url": "https://matomo.my-example-domain.com/", // matomo url with a trailing slash
+    "site": "1"
+  }
+}
+```
+
+### Provenance Commands
+
+The tracked default provenance commands from [tdp_core](https://github.com/datavisyn/tdp_core) are defined in [actions.ts](./src/actions.ts).
+
+Add a list of custom events when initializing the tracking:
+
+```ts
+const trackableActions: ITrackableAction[] = [
+  // id = phovea extension id
+  {id: 'targidCreateView', event: {category:'view', action: 'create'}},
+];
+trackApp(app, trackableActions);
+```
+
 
 Installation
 ------------
@@ -38,7 +68,5 @@ This repository is part of **[Phovea](http://phovea.caleydo.org/)**, a platform 
 [phovea-url]: https://phovea.caleydo.org
 [npm-image]: https://badge.fury.io/js/tdp_matomo.svg
 [npm-url]: https://npmjs.org/package/tdp_matomo
-[travis-image]: https://travis-ci.org/datavisyn/tdp_matomo.svg?branch=master
-[travis-url]: https://travis-ci.org/datavisyn/tdp_matomo
 [daviddm-image]: https://david-dm.org/datavisyn/tdp_matomo/status.svg
 [daviddm-url]: https://david-dm.org/datavisyn/tdp_matomo

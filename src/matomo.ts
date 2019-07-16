@@ -107,6 +107,22 @@ function initMamoto(config: IPhoveaMatomoConfig): boolean {
   return true;
 }
 
+/**
+ * Track provenance commands of any TDPApplication
+ *
+ * Add custom actions using the phovea extension id:
+ *
+ * ```ts
+ * // id = phovea extension id
+ * const trackableActions: ITrackableAction[] = [
+ *    {id: 'targidCreateView', event: {category:'view', action: 'create'}},
+ * ];
+ * trackApp(app, trackableActions);
+ * ```
+ *
+ * @param tdpApp ATDPApplication<any>
+ * @param customActions List of custom actions
+ */
 export function trackApp(tdpApp: ATDPApplication<any>, customActions?: {id: string, event: IMatomoEvent}[]): Promise<boolean> {
   // merge custom actions into trackable actions
   if(customActions && customActions.length > 0) {
