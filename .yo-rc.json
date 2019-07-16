@@ -1,0 +1,24 @@
+{
+  "generator-phovea": {
+    "type": "lib-slib",
+    "modules": [
+      "tdp_core",
+      "tdp_core"
+    ],
+    "libraries": [],
+    "libraryAliases": {},
+    "libraryExternals": [],
+    "name": "tdp_matomo",
+    "author": "Datavisyn GmbH",
+    "today": "Tue, 16 Jul 2019 09:22:25 GMT",
+    "githubAccount": "datavisyn",
+    "sextensions": [],
+    "unknown": {
+      "requirements": [],
+      "dockerPackages": []
+    },
+    "entries": "./index.js",
+    "ignores": [],
+    "extensions": []
+  }
+}
