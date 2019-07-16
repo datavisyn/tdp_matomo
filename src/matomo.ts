@@ -1,8 +1,5 @@
 import {on} from 'phovea_core/src/event';
 import {GLOBAL_EVENT_USER_LOGGED_IN, IUser, GLOBAL_EVENT_USER_LOGGED_OUT} from 'phovea_core/src/security';
-import Ordino from 'ordino/src/Ordino';
-import {SESSION_KEY_NEW_ENTRY_POINT} from 'ordino/src/internal/constants';
-import * as session from 'phovea_core/src/session';
 import {ProvenanceGraph, ActionNode} from 'phovea_core/src/provenance';
 import {getAPIJSON} from 'phovea_core/src/ajax';
 import ATDPApplication from 'tdp_core/src/ATDPApplication';
@@ -143,17 +140,13 @@ export function trackApp(tdpApp: ATDPApplication<any>, customActions?: {id: stri
 
   const matomoConfig = getAPIJSON('/tdp/config/matomo');
 
-  tdpApp.on(Ordino.EVENT_OPEN_START_MENU, () => matomo.trackEvent('startMenu', 'open', 'Open start menu'));
-
-  const sessionInit: {view: string, options: any} = <any>session.retrieve(SESSION_KEY_NEW_ENTRY_POINT);
+  tdpApp.on(ATDPApplication.EVENT_OPEN_START_MENU, () => matomo.trackEvent('startMenu', 'open', 'Open start menu'));
 
   on(GLOBAL_EVENT_USER_LOGGED_IN, (_, user: IUser) => {
     matomo.login(user.name);
     tdpApp.graph.then((graph) => {
-      if (graph.isEmpty && !sessionInit) {
+      if (graph.isEmpty) {
         matomo.trackEvent('session', 'new', 'New Session');
-      } else if (sessionInit) {
-        // matomo.trackEvent('session', 'init', `Initialize ${sessionInit.view}`);//, JSON.stringify(sessionInit.options));
       } else {
         matomo.trackEvent('session', 'continue', `${graph.desc.id} at state ${tdpApp.clueManager.storedState || Math.max(...graph.states.map((s) => s.id))}`);
       }
