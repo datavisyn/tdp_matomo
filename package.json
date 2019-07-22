@@ -2,7 +2,7 @@
   "name": "tdp_matomo",
   "description": "Matomo tracking for TDP applications",
   "homepage": "https://datavisyn.io",
-  "version": "develop",
+  "version": "1.0.1-SNAPSHOT",
   "author": {
     "name": "datavisyn GmbH",
     "email": "contact@datavisyn.io",
