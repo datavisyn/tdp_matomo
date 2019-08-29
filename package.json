@@ -109,7 +109,7 @@
   },
   "dependencies": {
     "tdp_core": "github:datavisyn/tdp_core#develop",
-    "phovea_clue": "github:datavisyn/phovea_clue#thinkh/provenance-graph-extension-point",
-    "phovea_core": "github:datavisyn/phovea_core#thinkh/146_login-extension-points"
+    "phovea_clue": "github:phovea/phovea_clue#thinkh/provenance-graph-extension-point",
+    "phovea_core": "github:phovea/phovea_core#thinkh/146_login-extension-points"
   }
 }
