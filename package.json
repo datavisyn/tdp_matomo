@@ -108,6 +108,8 @@
     "ts-loader": "4.0.1"
   },
   "dependencies": {
-    "tdp_core": "github:datavisyn/tdp_core#develop"
+    "tdp_core": "github:datavisyn/tdp_core#develop",
+    "phovea_clue": "github:datavisyn/phovea_clue#thinkh/provenance-graph-extension-point",
+    "phovea_core": "github:datavisyn/phovea_core#thinkh/146_login-extension-points"
   }
 }
