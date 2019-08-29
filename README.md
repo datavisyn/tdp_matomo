@@ -20,16 +20,19 @@ The site ID corresponds with the Matomo site.
 
 ### Provenance Commands
 
-The tracked default provenance commands from [tdp_core](https://github.com/datavisyn/tdp_core) are defined in [actions.ts](./src/actions.ts).
-
-Add a list of custom events when initializing the tracking:
+Provenance commands using the extension point `actionFunction` must be annotated with the property `tdp_matomo` in order to be found and tracked.
+The `tdp_matomo` configuration property requires the properties `category` and `action` from the `IMatomoEvent` (in *src/matomo.ts*), which can contain arbitrary strings.
 
 ```ts
-const trackableActions: ITrackableAction[] = [
-  // id = phovea extension id
-  {id: 'targidCreateView', event: {category:'view', action: 'create'}},
-];
-trackApp(app, trackableActions);
+  registry.push('actionFunction', 'targidCreateView', function() {
+    return System.import('./internal/cmds');
+  }, {
+    factory: 'createViewImpl',
+    tdp_matomo: {
+      category: 'view',
+      action: 'create'
+    }
+  });
 ```
 
 
