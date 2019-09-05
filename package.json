@@ -108,8 +108,6 @@
     "ts-loader": "4.0.1"
   },
   "dependencies": {
-    "tdp_core": "github:datavisyn/tdp_core#develop",
-    "phovea_clue": "github:phovea/phovea_clue#develop",
-    "phovea_core": "github:phovea/phovea_core#develop"
+    "tdp_core": "github:datavisyn/tdp_core#develop"
   }
 }
