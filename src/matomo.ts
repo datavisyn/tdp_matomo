@@ -117,12 +117,10 @@ export async function trackProvenance(graph: ProvenanceGraph) {
 
   const trackableActions = new Map<string, IMatomoEvent>();
 
-  // load all registered actionFunction extension points and look if they contain a `tdp_matomo` property
-  list((desc) => desc.type === 'actionFunction' && desc.tdp_matomo)
-    .forEach((desc) => {
-      // if(desc.tdp_matomo)
-      trackableActions.set(desc.id, desc.tdp_matomo);
-    });
+  // load all registered actionFunction extension points and look if they contain a `analytics` property
+  list((desc) => desc.type === 'actionFunction' && desc.analytics).forEach((desc) => {
+    trackableActions.set(desc.id, desc.analytics);
+  });
 
   graph.on('execute', (_, node: ActionNode) => {
     if(!Array.from(trackableActions.keys()).includes(node.getAttr('f_id'))) {
