@@ -2,7 +2,6 @@
   "generator-phovea": {
     "type": "lib-slib",
     "modules": [
-      "tdp_core",
       "tdp_core"
     ],
     "libraries": [],
