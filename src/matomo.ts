@@ -2,6 +2,7 @@ import {IUser} from 'phovea_core/src/security';
 import {ProvenanceGraph, ActionNode} from 'phovea_core/src/provenance';
 import {getAPIJSON} from 'phovea_core/src/ajax';
 import {list} from 'phovea_core/src/plugin';
+import md5 from 'crypto-js/md5';
 
 /**
  * Trackable Matomo event
@@ -42,14 +43,32 @@ interface IPhoveaMatomoConfig {
    * ID of the Matomo site (generated when creating a page)
    */
   site: string;
+
+  /**
+   * Flag whether the user name should be encrypted using MD5 or not
+   */
+  encryptUserName?: boolean;
 }
 
 class Matomo {
+
+  private userId: string;
 
   init(config: IPhoveaMatomoConfig) {
     if (!config.url) {
       return false;
     }
+
+    const userId = (config.encryptUserName === true) ? md5(this.userId).toString() : this.userId;
+
+    _paq.push(['setUserId', userId]);
+
+    // _paq.push(['requireConsent']); TODO user consent form with opt out
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    // enable correct measuring of the site since it is a single page site
+    _paq.push(['enableHeartBeatTimer']);
+
     _paq.push(['setTrackerUrl', `${config.url}matomo.php`]);
     _paq.push(['setSiteId', config.site]);
 
@@ -73,13 +92,9 @@ class Matomo {
     _paq.push(t);
   }
 
-  login(user: string) {
-    _paq.push(['setUserId', user]);
-    // _paq.push(['requireConsent']); TODO user consent form with opt out
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    // enable correct measuring of the site since it is a single page site
-    _paq.push(['enableHeartBeatTimer']);
+  login(userId: string) {
+    // store for later as we need to wait for the config to know whether the user name should be encrypted or not
+    this.userId = userId;
   }
 
   logout() {
