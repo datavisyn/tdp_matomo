@@ -5,12 +5,12 @@
  **************************************************************************** */
 
 import {register} from 'phovea_core/src/plugin';
-
+import reg from './src/phovea';
 /**
  * build a registry by registering all phovea modules
  */
 //other modules
 import 'tdp_core/phovea_registry.js';
-import 'tdp_core/phovea_registry.js';
+
 //self
-register('tdp_matomo',require('./phovea.js'));
+register('tdp_matomo', reg);

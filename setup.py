@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 ###############################################################################
 # Caleydo - Visualization for Molecular Biology - http://caleydo.org
 # Copyright (c) The Caleydo Team. All rights reserved.

@@ -6,30 +6,35 @@ Matomo tracking for TDP applications based on provenance graph commands.
 Configuration
 ------------
 
-The tracking starts when a URL to a Matomo backend is set in the `config.js`.
-The site ID corresponds with the Matomo site.
+* The tracking starts when a URL to a Matomo backend is set in the `config.js`.
+* The site ID corresponds with the Matomo site.
+* Enable the [md5](https://en.wikipedia.org/wiki/MD5) encryption of user names to prevent plaintext logging (e.g., when using Matomo with LDAP login)
 
 ```js
 {
   "matomo": {
     "url": "https://matomo.my-example-domain.com/", // matomo url with a trailing slash
-    "site": "1"
+    "site": "1",
+    "encryptUserName": false
   }
 }
 ```
 
 ### Provenance Commands
 
-The tracked default provenance commands from [tdp_core](https://github.com/datavisyn/tdp_core) are defined in [actions.ts](./src/actions.ts).
-
-Add a list of custom events when initializing the tracking:
+Provenance commands using the extension point `actionFunction` must be annotated with the property `tdp_matomo` in order to be found and tracked.
+The `tdp_matomo` configuration property requires the properties `category` and `action` from the `IMatomoEvent` (in *src/matomo.ts*), which can contain arbitrary strings.
 
 ```ts
-const trackableActions: ITrackableAction[] = [
-  // id = phovea extension id
-  {id: 'targidCreateView', event: {category:'view', action: 'create'}},
-];
-trackApp(app, trackableActions);
+  registry.push('actionFunction', 'targidCreateView', function() {
+    return System.import('./internal/cmds');
+  }, {
+    factory: 'createViewImpl',
+    tdp_matomo: {
+      category: 'view',
+      action: 'create'
+    }
+  });
 ```
 
 
