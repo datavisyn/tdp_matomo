@@ -6,14 +6,16 @@ Matomo tracking for TDP applications based on provenance graph commands.
 Configuration
 ------------
 
-The tracking starts when a URL to a Matomo backend is set in the `config.js`.
-The site ID corresponds with the Matomo site.
+* The tracking starts when a URL to a Matomo backend is set in the `config.js`.
+* The site ID corresponds with the Matomo site.
+* Enable the [md5](https://en.wikipedia.org/wiki/MD5) encryption of user names to prevent plaintext logging (e.g., when using Matomo with LDAP login)
 
 ```js
 {
   "matomo": {
     "url": "https://matomo.my-example-domain.com/", // matomo url with a trailing slash
-    "site": "1"
+    "site": "1",
+    "encryptUserName": false
   }
 }
 ```
