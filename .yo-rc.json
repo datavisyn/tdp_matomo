@@ -18,6 +18,12 @@
     },
     "entries": "./index.js",
     "ignores": [],
-    "extensions": []
+    "extensions": [],
+    "promptValues": {
+      "authorName": "datavisyn",
+      "authorEmail": "contact@datavisyn.io",
+      "authorUrl": "https://www.datavisyn.io",
+      "githubAccount": "datavisyn"
+    }
   }
 }
