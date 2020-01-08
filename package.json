@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/datavisyn/tdp_matomo.git"
+    "url": "git@github.com:datavisyn/tdp_matomo.git"
   },
   "main": "build/tdp_matomo.js",
   "files": [
@@ -70,6 +70,10 @@
     "npm": ">= 6.12",
     "node": ">= 12.13"
   },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "tdp_core": "github:datavisyn/tdp_core#develop"
+  },
   "devDependencies": {
     "@types/jasmine": "2.5.47",
     "awesome-typescript-loader": "3.1.2",
@@ -106,9 +110,5 @@
     "url-loader": "0.5.8",
     "webpack": "2.3.3",
     "webpack-dev-server": "2.4.2"
-  },
-  "dependencies": {
-    "crypto-js": "^3.1.9-1",
-    "tdp_core": "github:datavisyn/tdp_core#develop"
   }
 }
