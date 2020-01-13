@@ -8,7 +8,7 @@
     "libraryAliases": {},
     "libraryExternals": [],
     "name": "tdp_matomo",
-    "author": "Datavisyn GmbH",
+    "author": "datavisyn",
     "today": "Tue, 16 Jul 2019 09:22:25 GMT",
     "githubAccount": "datavisyn",
     "sextensions": [],
@@ -18,6 +18,12 @@
     },
     "entries": "./index.js",
     "ignores": [],
-    "extensions": []
+    "extensions": [],
+    "promptValues": {
+      "authorName": "datavisyn",
+      "authorEmail": "contact@datavisyn.io",
+      "authorUrl": "https://www.datavisyn.io",
+      "githubAccount": "datavisyn"
+    }
   }
 }
