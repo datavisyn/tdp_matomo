@@ -31,6 +31,8 @@
     "docker_packages.txt"
   ],
   "scripts": {
+    "clean": "rimraf build dist && npm run clean:compile",
+    "clean:compile": "rimraf src/**/*.map src/**/*.js src/**/*.d.ts tests/**/*.js tests/**/*.map tests/**/*.d.ts demo/**/*.js demo/**/*.map demo/**/*.d.ts",
     "check": "flake8 --exclude=.git,venv,deploy,docs,__pycache__,node_modules",
     "pretest": "echo hybrid",
     "test": "npm run test:web && npm run test:python",
@@ -42,7 +44,7 @@
     "compile": "tsc",
     "lint": "tslint -c tslint.json -p . 'src/**/*.ts?(x)' 'tests/**/*.ts?(x)'",
     "posttest": "echo hybrid",
-    "test:watch": "karma start --autoWatch=true --singleRun=false",
+    "test:watch": "jest --watch",
     "build:dev": "webpack",
     "start": "webpack-dev-server --inline",
     "start:hot": "webpack-dev-server --inline --hot",
@@ -55,7 +57,7 @@
     "pretest:web": "npm run compile",
     "pretest:python": "npm run check",
     "posttest:web": "npm run lint",
-    "test:web": "test ! $(find tests -name \"*.ts\") || karma start",
+    "test:web": "test ! $(find tests -name \"*.ts\") || jest",
     "test:python": "test ! $(find tests -name \"*.py\") || python setup.py test",
     "prebuild:python": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:python",
     "prebuild:web": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:web",
