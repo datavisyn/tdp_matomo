@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "crypto-js": "^3.1.9-1",
-    "tdp_core": "github:datavisyn/tdp_core#develop"
+    "tdp_core": "github:datavisyn/tdp_core#stoiber/testing_with_jest"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.47",
