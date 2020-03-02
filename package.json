@@ -63,7 +63,7 @@
     "build:web": "webpack --env prod",
     "predist:web": "npm run build:web && npm run docs:web",
     "predist:python": "npm run build:python && npm run docs:python",
-    "dist:web": "mkdirp dist && cd build && tar cvzf ../dist/tdp_matomo.tar.gz *",
+    "dist:web": "mkdir dist && cd build && tar cvzf ../dist/tdp_matomo.tar.gz *",
     "dist:python": "python setup.py sdist bdist_wheel"
   },
   "engines": {
@@ -95,7 +95,6 @@
     "karma-junit-reporter": "2.0.0",
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "2.0.3",
-    "mkdirp": "0.5.1",
     "node-sass": "^4.12.0",
     "null-loader": "0.1.1",
     "raw-loader": "0.5.1",
