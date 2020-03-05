@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "crypto-js": "^3.1.9-1",
-    "tdp_core": "github:datavisyn/tdp_core#typescript_3.8"
+    "tdp_core": "github:datavisyn/tdp_core#develop"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.47",
