@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.0.0",
-    "tdp_core": "github:datavisyn/tdp_core#update_dependencies_38"
+    "tdp_core": "github:datavisyn/tdp_core#update_dep_req"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.47",
