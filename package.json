@@ -1,7 +1,7 @@
 {
   "name": "tdp_matomo",
   "description": "Matomo tracking for TDP applications",
-  "version": "4.0.0",
+  "version": "4.0.1-SNAPSHOT",
   "homepage": "https://www.datavisyn.io",
   "author": {
     "name": "datavisyn",
@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.0.0",
-    "tdp_core": "github:datavisyn/tdp_core#semver:^9.0.0"
+    "tdp_core": "github:datavisyn/tdp_core#develop"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.47",
