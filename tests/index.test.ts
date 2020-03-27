@@ -1,4 +1,4 @@
-/// <reference types="jasmine" />
+/// <reference types="jest" />
 import {trackProvenance, trackLogin, trackLogout} from '../src/index';
 
 describe('index', () => {
