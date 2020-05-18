@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.0.0",
-    "tdp_core": "github:datavisyn/tdp_core#develop"
+    "tdp_core": "github:datavisyn/tdp_core#vstoiber/refactoring"
   },
   "devDependencies": {
     "@types/jest": "25.1.4",
