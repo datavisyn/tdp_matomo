@@ -1,6 +1,6 @@
 tdp_matomo  
 =====================
-[![Target Discovery Platform][tdp-image-client]][tdp-url] [![Target Discovery Platform][tdp-image-server]][tdp-url] [![NPM version][npm-image]][npm-url] 
+[![Target Discovery Platform][tdp-image-client]][tdp-url] [![Target Discovery Platform][tdp-image-server]][tdp-url] [![NPM version][npm-image]][npm-url] [![Build Status][circleci-image]][circleci-url]
 
 Matomo tracking for TDP applications based on provenance graph commands.
 
