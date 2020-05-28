@@ -11,15 +11,15 @@ import {IRegistry} from 'phovea_core';
 
 export default function (registry: IRegistry) {
 
-  registry.push('epPhoveaCoreLogin', 'matomoLogin', () => System.import('./matomo'), {
+  registry.push('epPhoveaCoreLogin', 'matomoLogin', () => import('./matomo'), {
     factory: 'trackLogin'
   });
 
-  registry.push('epPhoveaCoreLogout', 'matomoLogout', () => System.import('./matomo'), {
+  registry.push('epPhoveaCoreLogout', 'matomoLogout', () => import('./matomo'), {
     factory: 'trackLogout'
   });
 
-  registry.push('epPhoveaClueProvenanceGraph', 'matomoAnalytics', () => System.import('./matomo'), {
+  registry.push('epPhoveaClueProvenanceGraph', 'matomoAnalytics', () => import('./matomo'), {
     factory: 'trackProvenance'
   });
 

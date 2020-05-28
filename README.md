@@ -27,7 +27,7 @@ The `tdp_matomo` configuration property requires the properties `category` and `
 
 ```ts
   registry.push('actionFunction', 'targidCreateView', function() {
-    return System.import('./internal/cmds');
+    return import('./internal/cmds');
   }, {
     factory: 'createViewImpl',
     tdp_matomo: {
