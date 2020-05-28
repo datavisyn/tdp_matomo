@@ -1,16 +1,16 @@
 /// <reference types="jest" />
-import {trackProvenance, trackLogin, trackLogout} from '../src/index';
+import {Matomo} from '../src/app/Matomo';
 
 describe('index', () => {
   it('trackLogin() exists', () => {
-    expect(typeof trackLogin).toBe('function');
+    expect(typeof Matomo.trackLogin).toBe('function');
   });
 
   it('trackLogout() exists', () => {
-    expect(typeof trackLogout).toBe('function');
+    expect(typeof Matomo.trackLogout).toBe('function');
   });
 
   it('trackProvenance() exists', () => {
-    expect(typeof trackProvenance).toBe('function');
+    expect(typeof Matomo.trackProvenance).toBe('function');
   });
 });
