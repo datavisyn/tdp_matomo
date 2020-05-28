@@ -1,7 +1,7 @@
 import {IUser} from 'phovea_core';
 import {ProvenanceGraph, ActionNode} from 'phovea_core';
-import {getAPIJSON} from 'phovea_core';
-import {list} from 'phovea_core';
+import {AppContext} from 'phovea_core';
+import {PluginRegistry} from 'phovea_core';
 import md5 from 'crypto-js/md5';
 
 /**
@@ -130,7 +130,7 @@ export class Matomo {
     const trackableActions = new Map<string, IMatomoEvent>();
 
     // load all registered actionFunction extension points and look if they contain a `analytics` property
-    list((desc) => desc.type === 'actionFunction' && desc.analytics).forEach((desc) => {
+    PluginRegistry.getInstance().listPlugins((desc) => desc.type === 'actionFunction' && desc.analytics).forEach((desc) => {
       trackableActions.set(desc.id, desc.analytics);
     });
 
@@ -151,7 +151,7 @@ export class Matomo {
       Matomo.getInstance().trackEvent('provenance', 'runChain', 'Run actions in chain', nodes.length);
     });
 
-    const config: IPhoveaMatomoConfig = await getAPIJSON('/tdp/config/matomo');
+    const config: IPhoveaMatomoConfig = await AppContext.getInstance().getAPIJSON('/tdp/config/matomo');
     Matomo.getInstance().init(config);
   }
 
