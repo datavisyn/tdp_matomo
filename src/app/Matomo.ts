@@ -1,7 +1,7 @@
-import {IUser} from 'phovea_core/src/security';
-import {ProvenanceGraph, ActionNode} from 'phovea_core/src/provenance';
-import {getAPIJSON} from 'phovea_core/src/ajax';
-import {list} from 'phovea_core/src/plugin';
+import {IUser} from 'phovea_core';
+import {ProvenanceGraph, ActionNode} from 'phovea_core';
+import {getAPIJSON} from 'phovea_core';
+import {list} from 'phovea_core';
 import md5 from 'crypto-js/md5';
 
 /**
