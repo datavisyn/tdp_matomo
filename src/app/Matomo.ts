@@ -1,7 +1,7 @@
-import {IUser} from 'phovea_core/src/security';
-import {ProvenanceGraph, ActionNode} from 'phovea_core/src/provenance';
-import {getAPIJSON} from 'phovea_core/src/ajax';
-import {list} from 'phovea_core/src/plugin';
+import {IUser} from 'phovea_core';
+import {ProvenanceGraph, ActionNode} from 'phovea_core';
+import {AppContext} from 'phovea_core';
+import {PluginRegistry} from 'phovea_core';
 import md5 from 'crypto-js/md5';
 
 /**
@@ -50,7 +50,7 @@ interface IPhoveaMatomoConfig {
   encryptUserName?: boolean;
 }
 
-class Matomo {
+export class Matomo {
 
   private userId: string;
 
@@ -101,59 +101,68 @@ class Matomo {
     _paq.push(['resetUserId']);
     _paq.push(['trackPageView']);
   }
-}
 
-const matomo = new Matomo();
-
-/**
- * Login extension point
- */
-export function trackLogin(user: IUser) {
-  matomo.login(user.name);
-}
-
-/**
- * Logout extension point
- */
-export function trackLogout() {
-  matomo.logout();
-}
-
-/**
- * Provenance graph extension point
- * @param graph ProvenanceGraph
- */
-export async function trackProvenance(graph: ProvenanceGraph) {
-  if (graph.isEmpty) {
-    matomo.trackEvent('session', 'new', 'New Session');
-  } else {
-    matomo.trackEvent('session', 'continue', `${graph.desc.id} at state ${Math.max(...graph.states.map((s) => s.id))}`);
+  /**
+   * Login extension point
+   */
+  static trackLogin(user: IUser) {
+    Matomo.getInstance().login(user.name);
   }
 
-  const trackableActions = new Map<string, IMatomoEvent>();
+  /**
+   * Logout extension point
+   */
+  static trackLogout() {
+    Matomo.getInstance().logout();
+  }
 
-  // load all registered actionFunction extension points and look if they contain a `analytics` property
-  list((desc) => desc.type === 'actionFunction' && desc.analytics).forEach((desc) => {
-    trackableActions.set(desc.id, desc.analytics);
-  });
-
-  graph.on('execute', (_, node: ActionNode) => {
-    if(!Array.from(trackableActions.keys()).includes(node.getAttr('f_id'))) {
-      return;
+  /**
+   * Provenance graph extension point
+   * @param graph ProvenanceGraph
+   */
+  static async trackProvenance(graph: ProvenanceGraph) {
+    if (graph.isEmpty) {
+      Matomo.getInstance().trackEvent('session', 'new', 'New Session');
+    } else {
+      Matomo.getInstance().trackEvent('session', 'continue', `${graph.desc.id} at state ${Math.max(...graph.states.map((s) => s.id))}`);
     }
-    const event = trackableActions.get(node.getAttr('f_id'));
-    matomo.trackEvent(
-      event.category,
-      event.action,
-      (typeof event.name === 'function') ? event.name(node) : node.name,
-      (typeof event.value === 'function') ? event.value(node) : null
-    );
-  });
 
-  graph.on('run_chain', (_, nodes: ActionNode[]) => {
-    matomo.trackEvent('provenance', 'runChain', 'Run actions in chain', nodes.length);
-  });
+    const trackableActions = new Map<string, IMatomoEvent>();
 
-  const config: IPhoveaMatomoConfig = await getAPIJSON('/tdp/config/matomo');
-  matomo.init(config);
+    // load all registered actionFunction extension points and look if they contain a `analytics` property
+    PluginRegistry.getInstance().listPlugins((desc) => desc.type === 'actionFunction' && desc.analytics).forEach((desc) => {
+      trackableActions.set(desc.id, desc.analytics);
+    });
+
+    graph.on('execute', (_, node: ActionNode) => {
+      if(!Array.from(trackableActions.keys()).includes(node.getAttr('f_id'))) {
+        return;
+      }
+      const event = trackableActions.get(node.getAttr('f_id'));
+      Matomo.getInstance().trackEvent(
+        event.category,
+        event.action,
+        (typeof event.name === 'function') ? event.name(node) : node.name,
+        (typeof event.value === 'function') ? event.value(node) : null
+      );
+    });
+
+    graph.on('run_chain', (_, nodes: ActionNode[]) => {
+      Matomo.getInstance().trackEvent('provenance', 'runChain', 'Run actions in chain', nodes.length);
+    });
+
+    const config: IPhoveaMatomoConfig = await AppContext.getInstance().getAPIJSON('/tdp/config/matomo');
+    Matomo.getInstance().init(config);
+  }
+
+  private static instance: Matomo;
+  public static getInstance(): Matomo {
+    if (!Matomo.instance) {
+      Matomo.instance = new Matomo();
+    }
+    return Matomo.instance;
+  }
 }
+
+
+
