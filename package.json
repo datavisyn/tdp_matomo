@@ -80,6 +80,7 @@
     "identity-obj-proxy": "~3.0.0",
     "jest": "~26.1.0",
     "jest-raw-loader": "~1.0.1",
+    "readable-stream": "^2.0.0",
     "rimraf": "~3.0.2",
     "shx": "~0.3.2",
     "ts-jest": "~26.1.3",
