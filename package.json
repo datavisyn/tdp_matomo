@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.0.0",
-    "tdp_core": "^release-11.0.0"
+    "tdp_core": "github:datavisyn/tdp_core#release-11.0.0"
   },
   "devDependencies": {
     "@types/jest": "~26.0.20",
