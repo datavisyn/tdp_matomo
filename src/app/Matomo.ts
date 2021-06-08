@@ -2,7 +2,7 @@ import {IUser} from 'phovea_core';
 import {ProvenanceGraph, ActionNode} from 'phovea_core';
 import {AppContext} from 'phovea_core';
 import {PluginRegistry} from 'phovea_core';
-import md5 from 'crypto-js/md5';
+import md5 from 'md5';
 
 /**
  * Trackable Matomo event
@@ -59,7 +59,7 @@ export class Matomo {
       return false;
     }
 
-    const userId = (config.encryptUserName === true) ? md5(this.userId).toString() : this.userId;
+    const userId = (config.encryptUserName === true) ? md5(this.userId) : this.userId;
 
     _paq.push(['setUserId', userId]);
 
@@ -163,6 +163,3 @@ export class Matomo {
     return Matomo.instance;
   }
 }
-
-
-
