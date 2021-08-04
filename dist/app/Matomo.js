@@ -1,6 +1,6 @@
 import { AppContext } from 'phovea_core';
 import { PluginRegistry } from 'phovea_core';
-import md5 from 'crypto-js/md5';
+import md5 from 'md5';
 // assume `_pag` is already declared
 window._paq = window._paq || [];
 export class Matomo {
@@ -8,7 +8,7 @@ export class Matomo {
         if (!config.url) {
             return false;
         }
-        const userId = (config.encryptUserName === true) ? md5(this.userId).toString() : this.userId;
+        const userId = (config.encryptUserName === true) ? md5(this.userId) : this.userId;
         _paq.push(['setUserId', userId]);
         // _paq.push(['requireConsent']); TODO user consent form with opt out
         _paq.push(['trackPageView']);
