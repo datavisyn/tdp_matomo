@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.0.0",
-    "tdp_core": "github:datavisyn/tdp_core#bootstrap-v5",
+    "tdp_core": "github:datavisyn/tdp_core#develop",
     "md5": "^2.3.0"
   },
   "devDependencies": {
