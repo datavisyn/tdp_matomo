@@ -23,15 +23,15 @@ Configuration
 
 ### Provenance Commands
 
-Provenance commands using the extension point `actionFunction` must be annotated with the property `tdp_matomo` in order to be found and tracked.
-The `tdp_matomo` configuration property requires the properties `category` and `action` from the `IMatomoEvent` (in *src/matomo.ts*), which can contain arbitrary strings.
+Provenance commands using the extension point `actionFunction` must be annotated with the property `analytics` in order to be found and tracked.
+The `analytics` configuration property requires the properties `category` and `action` from the `IMatomoEvent` (in *src/matomo.ts*), which can contain arbitrary strings.
 
 ```ts
   registry.push('actionFunction', 'targidCreateView', function() {
     return import('./internal/cmds');
   }, {
     factory: 'createViewImpl',
-    tdp_matomo: {
+    analytics: {
       category: 'view',
       action: 'create'
     }
