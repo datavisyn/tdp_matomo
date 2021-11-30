@@ -1,8 +1,12 @@
-tdp_matomo  
+DEPRECATED: tdp_matomo  
 =====================
 [![Target Discovery Platform][tdp-image-client]][tdp-url] [![Target Discovery Platform][tdp-image-server]][tdp-url] [![NPM version][npm-image]][npm-url] [![Build Status][circleci-image]][circleci-url]
 
 Matomo tracking for TDP applications based on provenance graph commands.
+
+### DEPRECATION Information
+Please note that this project has been archived and is no longer being maintained. There is an active development under https://github.com/datavisyn/tdp_core and we will also contribute our future changes to it.
+
 
 Configuration
 ------------
@@ -23,15 +27,15 @@ Configuration
 
 ### Provenance Commands
 
-Provenance commands using the extension point `actionFunction` must be annotated with the property `tdp_matomo` in order to be found and tracked.
-The `tdp_matomo` configuration property requires the properties `category` and `action` from the `IMatomoEvent` (in *src/matomo.ts*), which can contain arbitrary strings.
+Provenance commands using the extension point `actionFunction` must be annotated with the property `analytics` in order to be found and tracked.
+The `analytics` configuration property requires the properties `category` and `action` from the `IMatomoEvent` (in *src/matomo.ts*), which can contain arbitrary strings.
 
 ```ts
   registry.push('actionFunction', 'targidCreateView', function() {
     return import('./internal/cmds');
   }, {
     factory: 'createViewImpl',
-    tdp_matomo: {
+    analytics: {
       category: 'view',
       action: 'create'
     }
