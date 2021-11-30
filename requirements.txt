@@ -1,1 +1,1 @@
--e git+https://github.com/datavisyn/tdp_core.git@develop#egg=tdp_core
+tdp_core>=12.1.2,<13.0.0

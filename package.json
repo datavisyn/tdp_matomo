@@ -1,7 +1,7 @@
 {
   "name": "tdp_matomo",
-  "description": "Matomo tracking for TDP applications",
-  "version": "7.0.1-SNAPSHOT",
+  "description": "DEPRECATED: Matomo tracking for TDP applications",
+  "version": "8.0.0",
   "homepage": "https://www.datavisyn.io",
   "author": {
     "name": "datavisyn GmbH",
@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.0.0",
-    "tdp_core": "github:datavisyn/tdp_core#develop",
+    "tdp_core": "^12.1.2",
     "md5": "^2.3.0"
   },
   "devDependencies": {
